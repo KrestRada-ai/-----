@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Концепция НТР транспортного комплекса РФ до 2035 года</title>
+  <style>
+    :root {
+      --cn-bg: var(--app-bg, #f5f7fb);
+      --cn-surface: var(--app-surface, #ffffff);
+      --cn-text: var(--app-text, #1b1f2a);
+      --cn-muted: var(--app-muted, #5b657a);
+      --cn-accent: var(--app-accent, #1f4fbf);
+      --cn-border: #d8deea;
+      --cn-mark: #fff2a8;
+      --cn-mark-active: #ffc94d;
+      --cn-font-size: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body {
+      margin: 0;
+      background: var(--cn-bg);
+      color: var(--cn-text);
+      font: 400 var(--cn-font-size)/1.65 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .cn-app { max-width: 1600px; margin: 0 auto; padding: 16px; }
+    .cn-header {
+      background: var(--cn-surface);
+      border: 1px solid var(--cn-border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .cn-title { margin: 0 0 6px; font-size: 1.25rem; line-height: 1.35; }
+    .cn-sub { color: var(--cn-muted); margin: 0 0 8px; }
+    .cn-link { color: var(--cn-accent); text-decoration: none; }
+    .cn-toolbar {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+      background: color-mix(in srgb, var(--cn-bg) 85%, white 15%);
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--cn-border);
+      border-radius: 12px;
+      padding: 10px; margin-bottom: 12px;
+    }
+    .cn-search-wrap { display: flex; align-items: center; gap: 8px; flex: 1 1 420px; }
+    .cn-search { flex: 1; min-width: 180px; padding: 10px 12px; border: 1px solid var(--cn-border); border-radius: 10px; }
+    .cn-btn { border: 1px solid var(--cn-border); background: var(--cn-surface); border-radius: 10px; padding: 8px 10px; cursor: pointer; }
+    .cn-btn:focus-visible, .cn-search:focus-visible, .cn-toc-btn:focus-visible { outline: 2px solid var(--cn-accent); outline-offset: 2px; }
+    .cn-font { display: flex; gap: 4px; }
+    .cn-font .is-active { border-color: var(--cn-accent); color: var(--cn-accent); font-weight: 700; }
+    .cn-layout { display: grid; grid-template-columns: 320px 1fr; gap: 14px; }
+    .cn-toc {
+      position: sticky; top: 84px; align-self: start;
+      background: var(--cn-surface); border: 1px solid var(--cn-border); border-radius: 14px; padding: 12px;
+    }
+    .cn-toc-title { margin: 0 0 10px; font-size: 1rem; }
+    .cn-toc-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+    .cn-toc-btn { width: 100%; text-align: left; border: 1px solid transparent; background: transparent; border-radius: 9px; padding: 7px 8px; cursor: pointer; }
+    .cn-toc-btn.is-active { background: #ecf2ff; border-color: #c9d8ff; color: #0d3a9a; font-weight: 600; }
+    .cn-main { background: var(--cn-surface); border: 1px solid var(--cn-border); border-radius: 14px; padding: 14px 16px; }
+    .cn-section { margin-bottom: 20px; scroll-margin-top: 120px; }
+    .cn-section h2 { margin: 12px 0; font-size: 1.1rem; }
+    .cn-point { position: relative; padding: 10px 130px 10px 12px; border-radius: 10px; margin: 8px 0; }
+    .cn-point:hover { background: #f7f9fe; }
+    .cn-point-num { color: var(--cn-accent); font-weight: 700; margin-right: 4px; }
+    .cn-copy-point {
+      position: absolute; right: 8px; top: 10px; opacity: .15; transition: opacity .2s;
+      font-size: .85rem;
+    }
+    .cn-point:hover .cn-copy-point, .cn-copy-point:focus { opacity: 1; }
+    .cn-mark { background: var(--cn-mark); }
+    .cn-mark.is-current { background: var(--cn-mark-active); }
+    .cn-selection-copy {
+      position: fixed; z-index: 50; display: none;
+      transform: translate(12px, 12px);
+    }
+    .cn-progress { height: 4px; background: #e5ebf7; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+    .cn-progress > span { display:block; height:100%; width:0; background: var(--cn-accent); }
+    @media (max-width: 1199px) {
+      .cn-layout { grid-template-columns: 1fr; }
+      .cn-toc { display: none; position: static; }
+      .cn-toc.is-open { display: block; }
+      .cn-menu-toggle { display: inline-block !important; }
+    }
+    @media (max-width: 767px) {
+      .cn-app { padding: 10px; }
+      .cn-main { padding: 10px; }
+      .cn-point { padding-right: 10px; }
+      .cn-copy-point { position: static; opacity: 1; margin-top: 6px; }
+    }
+    @media print {
+      .cn-header, .cn-toolbar, .cn-toc, .cn-copy-point, .cn-selection-copy { display:none !important; }
+      .cn-main { border: none; padding: 0; }
+      body { background: #fff; font-size: 12pt; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cn-app" aria-label="Просмотр концепции">
+    <header class="cn-header">
+      <h1 class="cn-title">Концепция научно-технологического развития транспортного комплекса Российской Федерации на&nbsp;период до&nbsp;2035&nbsp;года</h1>
+      <p class="cn-sub">Утверждена распоряжением Правительства Российской Федерации от&nbsp;19&nbsp;декабря&nbsp;2025&nbsp;г. №&nbsp;3871-р.</p>
+      <a class="cn-link" href="https://government.ru" target="_blank" rel="noopener noreferrer">Оригинал публикации на government.ru</a>
+      <div class="cn-progress" aria-hidden="true"><span id="cnProgress"></span></div>
+    </header>
+
+    <div class="cn-toolbar" role="region" aria-label="Инструменты документа">
+      <button id="cnMenuToggle" class="cn-btn cn-menu-toggle" style="display:none" aria-expanded="false" aria-controls="cnToc">☰ Оглавление</button>
+      <div class="cn-search-wrap">
+        <input id="cnSearch" class="cn-search" type="search" placeholder="Поиск по документу (поддержка аббревиатур)" aria-label="Поиск по документу" />
+        <button class="cn-btn" id="cnPrev" title="Предыдущий результат">↑</button>
+        <button class="cn-btn" id="cnNext" title="Следующий результат">↓</button>
+        <span id="cnCounter" aria-live="polite">0 из 0</span>
+      </div>
+      <div class="cn-font" role="group" aria-label="Размер шрифта">
+        <button class="cn-btn" data-size="16">A-</button>
+        <button class="cn-btn is-active" data-size="18">A</button>
+        <button class="cn-btn" data-size="20">A+</button>
+      </div>
+    </div>
+
+    <div class="cn-layout">
+      <aside id="cnToc" class="cn-toc" aria-label="Оглавление"></aside>
+      <main id="cnMain" class="cn-main"></main>
+    </div>
+
+    <button id="cnSelectionCopy" class="cn-btn cn-selection-copy" type="button">📋 Копировать выделенное</button>
+  </div>
+
+  <script>
+    const raw = String.raw`ЏђЂ‚€’…‹њ‘’‚Ћ ђЋ‘‘€‰‘ЉЋ‰ ”…„…ђЂ–€€
+
+ђЂ‘ЏЋђџ†…Ќ€…
+от 19 декабрЯ 2025 г. N 3871-р
+
+“твердить прилагаемую Љонцепцию научно-технологического развитиЯ транспортного комплекса ђоссийской ”едерации на период до 2035 года.
+
+Џредседатель Џравительства
+ђоссийской ”едерации
+Њ.Њ€“‘’€Ќ
+
+“тверждена
+распорЯжением Џравительства
+ђоссийской ”едерации
+от 19 декабрЯ 2025 г. N 3871-р
+
+ЉЋЌ–…Џ–€џ
+ЌЂ“—ЌЋ-’…•ЌЋ‹Ћѓ€—…‘ЉЋѓЋ ђЂ‡‚€’€џ ’ђЂЌ‘ЏЋђ’ЌЋѓЋ ЉЋЊЏ‹…Љ‘Ђ
+ђЋ‘‘€‰‘ЉЋ‰ ”…„…ђЂ–€€ ЌЂ Џ…ђ€Ћ„ „Ћ 2035 ѓЋ„Ђ
+
+I. Ћбщие положениЯ
+
+1. ЌастоЯщей Љонцепцией определЯютсЯ цель, основные задачи и приоритеты научно-технологического развитиЯ транспортного комплекса ђоссийской ”едерации (далее - транспортный комплекс) на период до 2035 года, устанавливаютсЯ основные направлениЯ и мероприЯтиЯ по научно-технологическому развитию транспортного комплекса, а также ожидаемые результаты, обеспечивающие устойчивое и сбалансированное развитие транспортного комплекса.
+2. Џравовую основу настоЯщей Љонцепции составлЯют:
+”едеральный закон "Ћ науке и государственной научно-технической политике";
+”едеральный закон "Ћ стратегическом планировании в ђоссийской ”едерации";
+”едеральный закон "Ћ технологической политике в ђоссийской ”едерации и о внесении изменений в отдельные законодательные акты ђоссийской ”едерации";
+“каз Џрезидента ђоссийской ”едерации от 10 октЯбрЯ 2019 г. N 490 "Ћ развитии искусственного интеллекта в ђоссийской ”едерации";
+“каз Џрезидента ђоссийской ”едерации от 2 июлЯ 2021 г. N 400 "Ћ ‘тратегии национальной безопасности ђоссийской ”едерации";
+“каз Џрезидента ђоссийской ”едерации от 28 февралЯ 2024 г. N 145 "Ћ ‘тратегии научно-технологического развитиЯ ђоссийской ”едерации";
+“каз Џрезидента ђоссийской ”едерации от 18 июнЯ 2024 г. N 529 "Ћб утверждении приоритетных направлений научно-технологического развитиЯ и перечнЯ важнейших наукоемких технологий".
+3. ‚ соответствии с “казом Џрезидента ђоссийской ”едерации от 18 июнЯ 2024 г. N 529 "Ћб утверждении приоритетных направлений научно-технологического развитиЯ и перечнЯ важнейших наукоемких технологий" интеллектуальные транспортные и телекоммуникационные системы, включаЯ автономные транспортные средства, определены одним из приоритетных направлений научно-технологического развитиЯ транспортного комплекса, транспортные технологии длЯ различных сфер применениЯ (море, землЯ, воздух), в том числе беспилотные и автономные системы, включены в качестве критических технологий в перечень важнейших наукоемких технологий.
+4. ЌастоЯщаЯ ЉонцепциЯ ЯвлЯетсЯ документом отраслевого стратегического планированиЯ и направлена на научно-технологическое обеспечение реализации задач ‘тратегии научно-технологического развитиЯ ђоссийской ”едерации...
+5. „лЯ реализации настоЯщей Љонцепции осуществлЯетсЯ координациЯ усилий Њинистерства транспорта ђоссийской ”едерации с федеральными органами исполнительной власти, органами государственной власти субъектов ђоссийской ”едерации, органами местного самоуправлениЯ и организациЯми транспортного комплекса.
+
+II. ’ранспортнаЯ наука и направлениЯ научно-технической деЯтельности в сфере транспорта
+6. „лЯ целей настоЯщей Љонцепции под транспортной наукой понимаетсЯ междисциплинарное направление науки...
+7. Ќаучно-техническаЯ деЯтельность в сфере транспорта охватывает широкий спектр вопросов, включаЯ:
+проектирование и оптимизацию транспортной инфраструктуры (автомобильные дороги, инфраструктура железнодорожного транспорта, морские и речные порты, аэропорты);
+управление транспортными потоками и логистикой;
+разработку интеллектуальных транспортных систем и цифровых технологий (например, навигациЯ, автоматизациЯ);
+анализ экономической эффективности и экологического влиЯниЯ транспорта на окружающую среду;
+исследование безопасности, правовых норм и социальных аспектов транспорта (мобильность, доступность длЯ населениЯ, в том числе длЯ людей с ограниченными возможностЯми здоровьЯ);
+изучение и прогноз влиЯниЯ природных опасностей на транспорт и его инфраструктуру;
+изучение комплексного воздействиЯ физических факторов транспорта на здоровье работников и население.
+8. Љлючевыми направлениЯми науки... юридические науки.
+9. ЋбластЯми научных знаний, на основе результатов которых развиваютсЯ транспортные технологии, ЯвлЯютсЯ естественные, технические, общественные и медицинские науки.
+
+III. ђоль науки и технологий в обеспечении устойчивого развитиЯ транспортной системы
+10. ’ранспортнаЯ наука играет ведущую историческую роль в развитии транспортной системы страны.
+11. Ќачало развитиЯ современной транспортной системы...
+12. Ќаучную (научно-исследовательскую) деЯтельность в интересах транспортного комплекса на федеральном уровне ведут...
+
+IV. Ћсновные тенденции, вызовы, сдерживающие факторы и возможности научно-технологического развитиЯ транспортного комплекса
+13. ‘овременными вызовами длЯ успешного функционированиЯ и развитиЯ транспортной системы ЯвлЯютсЯ:
+необходимость обеспечениЯ эффективной свЯзанности территории ђоссийской ”едерации в силу уникального географического положениЯ страны и протЯженности ее территории;
+масштабные санкционные ограничениЯ, приводЯщие к дестабилизации глобальных логистических свЯзей;
+требование независимости транспортного комплекса...
+14. Џеред транспортной наукой стоЯт вызовы...
+15. ‡начимыми факторами, сдерживающими научно-технологическое обеспечение транспортного комплекса, ЯвлЯютсЯ:
+недостаточнаЯ координациЯ государственной поддержки научных исследований в интересах транспорта;
+...низкаЯ эффективность отраслевой аспирантуры.
+16. Ћпыт и возможности, позитивно влиЯющие на научно-технологическое развитие транспортного комплекса, включают:
+наличие многолетних инженерных и исследовательских традиций...
+
+V. –ель Љонцепции и направлениЯ научно-технологического развитиЯ транспортного комплекса
+17. –елью настоЯщей Љонцепции ЯвлЯетсЯ научно-технологическое развитие транспортного комплекса...
+18. ЌаправлениЯ научно-технологического развитиЯ транспортного комплекса учитывают комплексные задачи...
+19. Љ ключевым направлениЯм научно-технологического развитиЯ транспортного комплекса относЯтсЯ:
+разработка новых видов транспортной техники...
+20. Љлючевые направлениЯ научно-технологического развитиЯ транспортного комплекса реализуютсЯ во взаимосвЯзи...
+21. Ћсновными направлениЯми фундаментальных научных, поисковых прикладных исследований в сфере транспорта ЯвлЯютсЯ:
+прогнозное моделирование направлений и масштаба развитиЯ транспортной системы ђоссийской ”едерации...
+22. Ћсновными перспективными транспортными технологиЯми ЯвлЯютсЯ:
+высокоскоростные транспортные системы;
+...транспортные средства длЯ работы в нескольких природных средах (воздушной, наземной, водной, подводной).
+
+VI. ‡адачи научно-технологического развитиЯ транспортного комплекса
+23. ‘тратегические задачи, решаемые за счет научно-технологического развитиЯ транспортного комплекса, включают:
+повышение скорости движениЯ, энергоэффективности и комфортабельности транспортной системы;
+...
+24. Ћрганизационные задачи научно-технологического развитиЯ транспортного комплекса включают:
+формирование эффективной системы управлениЯ в области транспортной науки, технологий и производства;
+...
+25. ‚ целЯх формированиЯ эффективной системы управлениЯ научными исследованиЯми и разработками в транспортной отрасли предусматриваютсЯ:
+...
+26. ‚ целЯх развитиЯ единого отраслевого научно-технологического пространства транспортной отрасли предусматриваютсЯ:
+...
+27. ‚ целЯх созданиЯ инфраструктуры и условий длЯ проведениЯ научных исследований и осуществлениЯ экспериментальных разработок в транспортном комплексе... предусматриваютсЯ:
+...
+28. ‚ целЯх обеспечениЯ высококвалифицированными кадрами транспортной науки... предусматриваютсЯ:
+...
+29. ‚ целЯх повышениЯ эффективности системы взаимодействиЯ науки, технологий и производства в транспортном комплексе... предусматриваютсЯ:
+...
+30. ‚ целЯх формированиЯ модели международного научно-технического сотрудничества и международной интеграции в области транспортных научных исследований и разработок предусматриваютсЯ:
+...
+
+VII. Ћжидаемые результаты реализации Љонцепции
+31. ‚ целЯх реализации настоЯщей Љонцепции Њинистерством транспорта ђоссийской ”едерации...
+32. Љлючевыми результатами реализации настоЯщей Љонцепции будут ЯвлЯтьсЯ:
+...
+33. „еЯтельность центров научно-технологических компетенций будет осуществлЯтьсЯ в том числе по следующим направлениЯм:
+высокоскоростное железнодорожное движение;
+...
+
+VIII. €нструменты реализации Љонцепции
+34. Љлючевыми инструментами реализации настоЯщей Љонцепции ЯвлЯютсЯ:
+...
+35. €нструментами реализации настоЯщей Љонцепции ЯвлЯютсЯ:
+...
+36. ”инансовое обеспечение реализации настоЯщей Љонцепции осуществлЯетсЯ за счет средств...
+
+IX. Њониторинг и контроль реализации Љонцепции
+37. Њониторинг и контроль реализации настоЯщей Љонцепции осуществлЯетсЯ...
+38. Џеречень показателей в области научно-технологического развитиЯ длЯ подведомственных организаций разрабатываетсЯ...
+`;
+
+    const applyNbsp = (str) => {
+      const preps = ['в','на','с','по','к','у','о','об','от','из','без','для','до','за','над','при','под','перед','через','про','около','между'];
+      let out = str;
+      preps.forEach(p => {
+        out = out.replace(new RegExp(`(^|\\s)(${p})(\\s+)`, 'gmi'), `$1$2&nbsp;`);
+      });
+      out = out.replace(/№\s+/g, '№&nbsp;').replace(/\bN\s+/g, 'N&nbsp;');
+      out = out.replace(/(\d{1,2})\s+([А-Яа-яA-Za-zЁё]+)\s+(\d{4})\s+г\./g, '$1&nbsp;$2&nbsp;$3&nbsp;г.');
+      return out;
+    };
+
+    const lines = raw.split(/\n+/).map(l => l.trim()).filter(Boolean);
+    const sections = [];
+    let current = { title: 'Преамбула', points: [] };
+    let point = null;
+
+    const secRe = /^(I|II|III|IV|V|VI|VII|VIII|IX)\./;
+    const pointRe = /^(\d+)\.\s*(.*)$/;
+
+    for (const line of lines) {
+      if (secRe.test(line)) {
+        if (point) current.points.push(point);
+        point = null;
+        if (current.title || current.points.length) sections.push(current);
+        current = { title: line, points: [] };
+        continue;
+      }
+      const pm = line.match(pointRe);
+      if (pm) {
+        if (point) current.points.push(point);
+        point = { n: pm[1], text: pm[2], items: [] };
+      } else if (point && /;$/.test(line)) {
+        point.items.push(line);
+      } else if (point) {
+        point.text += ' ' + line;
+      }
+    }
+    if (point) current.points.push(point);
+    sections.push(current);
+
+    const main = document.getElementById('cnMain');
+    const toc = document.getElementById('cnToc');
+
+    const tocList = document.createElement('ul');
+    tocList.className = 'cn-toc-list';
+    const tocTitle = document.createElement('h2');
+    tocTitle.className = 'cn-toc-title';
+    tocTitle.textContent = 'Оглавление';
+    toc.append(tocTitle, tocList);
+
+    sections.forEach((section, idx) => {
+      const sec = document.createElement('section');
+      sec.className = 'cn-section';
+      sec.id = `cn-sec-${idx}`;
+      const h2 = document.createElement('h2');
+      h2.innerHTML = applyNbsp(section.title);
+      sec.appendChild(h2);
+
+      section.points.forEach(p => {
+        const art = document.createElement('article');
+        art.className = 'cn-point';
+        art.tabIndex = 0;
+        const pEl = document.createElement('p');
+        pEl.innerHTML = `<span class="cn-point-num">${p.n}.</span>${applyNbsp(p.text)}`;
+        art.appendChild(pEl);
+
+        if (p.items.length) {
+          const ul = document.createElement('ul');
+          p.items.forEach(it => {
+            const li = document.createElement('li');
+            li.innerHTML = applyNbsp(it);
+            ul.appendChild(li);
+          });
+          art.appendChild(ul);
+        }
+
+        const btn = document.createElement('button');
+        btn.className = 'cn-btn cn-copy-point';
+        btn.type = 'button';
+        btn.textContent = '📋 Копировать пункт';
+        btn.title = 'Копировать пункт';
+        btn.addEventListener('click', async () => {
+          const txt = art.innerText.replace('📋 Копировать пункт', '').trim();
+          await navigator.clipboard.writeText(txt);
+          const old = btn.textContent; btn.textContent = '✅ Скопировано!';
+          setTimeout(() => btn.textContent = old, 1200);
+        }, { passive: true });
+        art.appendChild(btn);
+
+        sec.appendChild(art);
+      });
+      main.appendChild(sec);
+
+      const first = section.points[0]?.n || '—';
+      const last = section.points.at(-1)?.n || '—';
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.className = 'cn-toc-btn';
+      b.type = 'button';
+      b.dataset.target = sec.id;
+      b.innerHTML = `${section.title}<br><small>п.&nbsp;${first}–${last}</small>`;
+      b.addEventListener('click', () => {
+        document.getElementById(sec.id)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }, { passive: true });
+      li.appendChild(b);
+      tocList.appendChild(li);
+    });
+
+    const menuToggle = document.getElementById('cnMenuToggle');
+    menuToggle.addEventListener('click', () => {
+      const open = toc.classList.toggle('is-open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+    }, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      const vis = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!vis) return;
+      document.querySelectorAll('.cn-toc-btn').forEach(btn => btn.classList.toggle('is-active', btn.dataset.target === vis.target.id));
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: [0.2, 0.6] });
+    document.querySelectorAll('.cn-section').forEach(s => observer.observe(s));
+
+    const norm = s => s.toLowerCase().replace(/ё/g,'е').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();
+    const aliases = { 'ниит': 'научно исследовательского института транспорта', 'нтр': 'научно технологического развития', 'ии': 'искусственного интеллекта' };
+    let marks = [], idx = -1;
+
+    function clearMarks() {
+      marks.forEach(m => {
+        const p = m.parentNode;
+        if (!p) return;
+        p.replaceChild(document.createTextNode(m.textContent), m);
+        p.normalize();
+      });
+      marks = []; idx = -1;
+      document.getElementById('cnCounter').textContent = '0 из 0';
+    }
+
+    function highlight(q) {
+      clearMarks();
+      if (!q.trim()) return;
+      const query = aliases[norm(q)] || q;
+      const needle = norm(query);
+      const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) { return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }
+      });
+      const targets = [];
+      while (walker.nextNode()) targets.push(walker.currentNode);
+      for (const n of targets) {
+        const val = n.nodeValue;
+        const nval = norm(val);
+        const pos = nval.indexOf(needle);
+        if (pos < 0) continue;
+        const rawPos = val.toLowerCase().indexOf(query.toLowerCase().split(' ')[0]);
+        if (rawPos < 0) continue;
+        const r = document.createRange();
+        r.setStart(n, rawPos); r.setEnd(n, Math.min(val.length, rawPos + query.length));
+        const m = document.createElement('mark'); m.className = 'cn-mark';
+        r.surroundContents(m); marks.push(m);
+      }
+      if (marks.length) goto(0);
+      document.getElementById('cnCounter').textContent = `${marks.length ? 1 : 0} из ${marks.length}`;
+    }
+
+    function goto(next) {
+      if (!marks.length) return;
+      marks.forEach(m => m.classList.remove('is-current'));
+      idx = (next + marks.length) % marks.length;
+      marks[idx].classList.add('is-current');
+      marks[idx].scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      document.getElementById('cnCounter').textContent = `${idx + 1} из ${marks.length}`;
+    }
+
+    const search = document.getElementById('cnSearch');
+    search.addEventListener('input', (e) => highlight(e.target.value));
+    search.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); goto(idx + (e.shiftKey ? -1 : 1)); }
+    });
+    document.getElementById('cnNext').addEventListener('click', () => goto(idx + 1), { passive: true });
+    document.getElementById('cnPrev').addEventListener('click', () => goto(idx - 1), { passive: true });
+
+    document.querySelectorAll('[data-size]').forEach(btn => btn.addEventListener('click', () => {
+      document.documentElement.style.setProperty('--cn-font-size', btn.dataset.size + 'px');
+      document.querySelectorAll('[data-size]').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+    }, { passive: true }));
+
+    const selBtn = document.getElementById('cnSelectionCopy');
+    let selected = '';
+    document.addEventListener('mouseup', (e) => {
+      const sel = window.getSelection();
+      selected = sel ? sel.toString().trim() : '';
+      if (!selected) { selBtn.style.display = 'none'; return; }
+      selBtn.style.display = 'block';
+      selBtn.style.left = e.clientX + 'px';
+      selBtn.style.top = e.clientY + 'px';
+    }, { passive: true });
+    selBtn.addEventListener('click', async () => {
+      if (!selected) return;
+      await navigator.clipboard.writeText(selected);
+      const old = selBtn.textContent; selBtn.textContent = '✅ Скопировано!';
+      setTimeout(() => { selBtn.textContent = old; selBtn.style.display = 'none'; }, 900);
+    }, { passive: true });
+
+    const progress = document.getElementById('cnProgress');
+    document.addEventListener('scroll', () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      progress.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
+    }, { passive: true });
+  </script>
+</body>
+</html>
